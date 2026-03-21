@@ -95,6 +95,62 @@ The shipped CLM input files implement the `phase8_clump` configuration:
 
 CLM input files use headers from the `feature/clm_driver_cleanup` branch.
 
+## Choosing a Site and Water Year
+
+Any Ameriflux site within the CONUS2 domain can be used. When selecting a site and water year:
+
+- **Data coverage**: Check that Ameriflux has latent heat data for your chosen water year
+  using the Bokeh preview in Notebook 1. Gaps in tower data reduce the value of the comparison.
+- **IGBP type**: Cropland (CRO) sites tend to perform best (KGE 0.55-0.68). Forest sites
+  (DBF, ENF, MF) perform well with canopy clumping. Arid/semi-arid sites (WSA, OSH) are
+  more sensitive to WTD and soil parameters.
+- **Water year selection**: Choose a year with complete forcing coverage (CW3E v1.0 covers
+  WY2003-present). Avoid years with known instrument issues at the tower site.
+
+## Water Table Depth
+
+Water table depth (WTD) is the most sensitive parameter for ET in single-column simulations.
+It controls how much groundwater is available to sustain transpiration during dry periods.
+
+**Sources available in Notebook 1:**
+- **CONUS2 baseline**: Monthly mean WTD from the CONUS2.1 simulation. Not available for
+  all water years.
+- **Ma et al. (2025) 30m**: Static high-resolution WTD estimate. Available everywhere but
+  represents a long-term mean, not a specific year.
+
+**Guidance:**
+- Shallow WTD sites (coastal plains, wetlands, river valleys): use CONUS2 baseline if
+  available, or literature values. US-Slt (Pine Barrens, NJ) has WTD ~0.2m.
+- Deep WTD sites (mountains, arid regions): WTD > 8m means the water table is below the
+  model domain. ET will be entirely rainfall-dependent with no groundwater contribution.
+  This is physically correct for many western US sites.
+- The Ma 2025 product can overestimate WTD in areas with shallow water tables. Cross-check
+  with site literature or USGS well data when possible.
+- WTD can be overridden directly in Notebook 2 without re-running Notebook 1.
+
+## Troubleshooting
+
+**Solver failure (run stops before completing the water year):**
+- Check the ParFlow log (`pfclm_sc.out.log`) for timestep cutting. If dt drops below
+  ~0.01 and the run stalls, the solver cannot converge.
+- Common cause: sharp property contrast at the soil/geology interface combined with
+  a wetting front or freeze/thaw event. Try adjusting WTD or increasing
+  `Solver.Nonlinear.MaxIter`.
+- Verify geology VG parameters are reasonable (n should be >= 2.0). VG n < 1.0 produces
+  unphysical saturation values.
+
+**HydroData errors:**
+- `register_api_pin` only needs to run once per machine. If it fails, check your
+  credentials at https://hydrogen.princeton.edu/pin.
+- Some Ameriflux variables (e.g., VPD, wind) are not available at all sites. The forcing
+  comparison cell skips unavailable variables automatically.
+- If `get_gridded_data` fails for CONUS2 baseline WTD, the Ma 2025 product is used as
+  fallback. Both can be unavailable for some site/year combinations.
+
+**Stale kernel after file edits:**
+- If `helpers.py` is updated but the notebook throws `ImportError`, restart the kernel.
+  Jupyter caches imported modules and won't pick up on-disk changes without a restart.
+
 ## File Structure
 
 ```
