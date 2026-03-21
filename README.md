@@ -41,11 +41,27 @@ hf.register_api_pin("your_email", "your_pin")
 
 ## Quick Start
 
-1. **`locate_plot_station_get_forcing.ipynb`** — Pick a site, query subsurface parameters, download CW3E forcing, prepare CLM input files.
+1. **`locate_plot_station_get_forcing.ipynb`** -- Pick a site, query CONUS2 subsurface (soil + geology), set water table depth, download CW3E forcing, prepare CLM input files. Writes `site_config.txt` for Notebook 2.
 
-2. **`Single_Column_PFCLM_netcdf.ipynb`** — Configure soil/WTD parameters, run ParFlow-CLM with improved physics, verify output.
+2. **`Single_Column_PFCLM_netcdf.ipynb`** -- Load site config, configure two-layer subsurface (soil over geology), run ParFlow-CLM with improved physics, verify output.
 
-3. **`pfclm_ameriflux_compare.ipynb`** — Load output, fetch Ameriflux observations, compute metrics (KGE, NSE, RMSE, bias), plot time series and scatter plots.
+3. **`pfclm_ameriflux_compare.ipynb`** -- Load output, fetch Ameriflux observations, compute metrics (KGE, NSE, RMSE, bias), plot time series, scatter, ET components, soil moisture, and 5-variable forcing quality comparison.
+
+## Subsurface Structure
+
+The single-column domain is 8m deep with 10 computational layers and two subsurface zones:
+
+| Zone | Layers | Physical depth | Source |
+|------|--------|---------------|--------|
+| Soil | 6-9 (top) | 2.0m (1.0 + 0.6 + 0.3 + 0.1m) | CONUS2.1 top-layer soil type |
+| Geology | 0-5 (bottom) | 6.0m (6 x 1.0m) | CONUS2.1 layer-4 geology type |
+
+Soil hydraulic properties (Ksat, porosity, VG alpha/n) come from the CONUS2.1 soil
+texture table (13 types). Geology uses per-type Ksat and porosity with domain-default
+Van Genuchten parameters (alpha=0.5, n=2.5).
+
+Water table depth is queried from CONUS2 baseline and Ma et al. (2025) 30m products,
+set by the user, and applied as an equilibrium bottom boundary condition.
 
 ## Tested Sites
 
@@ -77,13 +93,16 @@ The shipped CLM input files implement the `phase8_clump` configuration:
 - **CLM4.5 optical/structural parameters**: Updated leaf/stem reflectance and transmittance.
 - **PFT-dependent Vcmax**: Custom photosynthesis with PFT-specific `vcmx25` values.
 
+CLM input files use headers from the `feature/clm_driver_cleanup` branch.
+
 ## File Structure
 
 ```
 clm_inputs/
-  drv_vegp.dat               # PFT parameters (CLM4.5 + clumping)
-  drv_clmin_template.dat     # CLM driver template (dates patched at runtime)
-helpers.py                   # vegm builder, clmin patcher, IGBP/soil tables
+  drv_vegp.dat               # PFT parameters (CLM4.5 + clumping, best-practice)
+  drv_clmin_template.dat     # CLM driver template (30m forcing heights, dewmx=0.2)
+helpers.py                   # vegm builder, clmin patcher, IGBP/soil/geology tables,
+                             #   site config read/write
 locate_plot_station_get_forcing.ipynb
 Single_Column_PFCLM_netcdf.ipynb
 pfclm_ameriflux_compare.ipynb
