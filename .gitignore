@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Jupyter
+.ipynb_checkpoints/
+
+# ParFlow output
+*.pfidb
+*.pfb
+*.pfb.dist
+*.silo
+*.nc
+*.log
+*.out.*
+output/
+
+# Run directories (user-created)
+runs/
+
+# OS
+.DS_Store
