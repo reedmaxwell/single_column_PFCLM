@@ -77,6 +77,56 @@ CONUS2_GEOLOGY = {
 # Combined lookup for any pf_indicator value
 CONUS2_SUBSURFACE = {**CONUS2_SOILS, **CONUS2_GEOLOGY}
 
+# =============================================================================
+# SNOTEL Site Catalog (for snow/ notebooks)
+# Subset of low-bias site-years from the snow_model_sensitivity study.
+# triplet is the NRCS/HydroData site identifier (e.g. "679:WA:SNTL").
+# =============================================================================
+SNOTEL_SITES = {
+    # Cascades (maritime, heavy snowfall)
+    "Paradise":          {"coords": (46.79, -121.74), "elev_m": 1564, "state": "WA",
+                          "region": "Cascades",         "triplet": "679:WA:SNTL"},
+    "Stevens_Pass":      {"coords": (47.74, -121.09), "elev_m": 1241, "state": "WA",
+                          "region": "Cascades",         "triplet": "791:WA:SNTL"},
+    # Sierra Nevada
+    "CSS_Lab":           {"coords": (39.31, -120.37), "elev_m": 2103, "state": "CA",
+                          "region": "Sierra Nevada",    "triplet": "428:CA:SNTL"},
+    "Leavitt_Lake":      {"coords": (38.28, -119.56), "elev_m": 2987, "state": "CA",
+                          "region": "Sierra Nevada",    "triplet": "518:CA:SNTL"},
+    "Donner_Summit":     {"coords": (39.32, -120.33), "elev_m": 2103, "state": "CA",
+                          "region": "Sierra Nevada",    "triplet": "428:CA:SNTL"},
+    # Wyoming (continental)
+    "Togwotee_Pass":     {"coords": (43.76, -110.07), "elev_m": 2936, "state": "WY",
+                          "region": "Wyoming",          "triplet": "822:WY:SNTL"},
+    "Canyon":            {"coords": (44.73, -110.50), "elev_m": 2438, "state": "WY",
+                          "region": "Wyoming",          "triplet": "384:WY:SNTL"},
+    # Colorado Rockies
+    "Berthoud_Summit":   {"coords": (39.80, -105.78), "elev_m": 3536, "state": "CO",
+                          "region": "Colorado Rockies", "triplet": "335:CO:SNTL"},
+    "Schofield_Pass":    {"coords": (39.02, -107.05), "elev_m": 3261, "state": "CO",
+                          "region": "Colorado Rockies", "triplet": "737:CO:SNTL"},
+    # Wasatch / Utah
+    "Brighton":          {"coords": (40.60, -111.58), "elev_m": 2667, "state": "UT",
+                          "region": "Wasatch",          "triplet": "366:UT:SNTL"},
+    # Southern Rockies / arid
+    "Quemazon":          {"coords": (35.93, -106.40), "elev_m": 2926, "state": "NM",
+                          "region": "Southern Rockies", "triplet": "708:NM:SNTL"},
+    # Northern Rockies
+    "Northeast_Entrance":{"coords": (45.00, -109.93), "elev_m": 2286, "state": "MT",
+                          "region": "Northern Rockies", "triplet": "656:MT:SNTL"},
+}
+
+# Showcase subset — geographically diverse, recent CW3E-covered water years.
+# Default WY choices come from the snow_model_sensitivity low-bias pool.
+SNOTEL_SHOWCASE = [
+    ("Paradise",         2022),
+    ("CSS_Lab",          2022),
+    ("Togwotee_Pass",    2020),
+    ("Berthoud_Summit",  2024),
+    ("Brighton",         2024),
+    ("Quemazon",         2023),
+]
+
 
 def write_site_config(filepath, params):
     """Write site parameters to a text file for passing between notebooks.
