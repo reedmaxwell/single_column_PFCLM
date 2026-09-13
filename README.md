@@ -11,6 +11,24 @@ CLM physics, organized by topic:
 Each topic is a three-notebook workflow that shares site-configuration and
 forcing infrastructure through the top-level `helpers.py`.
 
+## Associated Manuscripts
+
+This repository is the code and data archive for two papers; the examples
+here follow their model configurations:
+
+- **Snow** (`snow/`, `rf/`, `data/`): Maxwell, R.M., *Land surface model snow
+  formulation sensitivity and a solar-zenith-angle snow covered area scheme
+  evaluated across the western United States*, Journal of Hydrology, in
+  revision.  The `rf/` folder archives the random forest forcing bias
+  correction used in that study (exact script, random seeds, site-grouped
+  cross-validation folds, input and output site-year tables; see
+  `rf/README.md`), and `data/` holds the station lists, experiment groups,
+  and processed per-site-year metrics for the paper's three experiments
+  (see `data/README.md`).
+- **ET** (`et/`): Maxwell, R.M., Journal of Hydrology X, in review.
+
+Citations will be updated with final titles and DOIs upon acceptance.
+
 ## Prerequisites
 
 ### ParFlow (master)
@@ -75,6 +93,19 @@ single_column_PFCLM/
 │   ├── locate_plot_station_get_forcing.ipynb
 │   ├── Single_Column_PFCLM_netcdf.ipynb
 │   └── pfclm_snotel_compare.ipynb
+├── rf/                              # RF forcing bias correction (snow paper):
+│   │                                #   script, seeds, CV folds, in/out tables
+│   ├── README.md
+│   ├── plot_forcing_bias_rfcorrected.py
+│   ├── all_siteyears_with_temp.csv
+│   └── all_siteyears_rfcorrected.csv
+├── data/                            # Snow-paper tables: site-years (Table S1),
+│   │                                #   per-site-year metrics for Experiments 1-3
+│   ├── README.md
+│   ├── Table_S1_siteyears.csv
+│   ├── unified_metrics.csv
+│   ├── calibration_metrics.csv
+│   └── highbias_metrics.csv
 └── runs/                            # run output, subfoldered by topic
     ├── et/
     └── snow/
@@ -260,6 +291,10 @@ for full WTD sourcing options.
 
 ## References
 
+- Maxwell, R.M. (in revision). Land surface model snow formulation sensitivity
+  and a solar-zenith-angle snow covered area scheme evaluated across the
+  western United States. Journal of Hydrology.
+- Maxwell, R.M. (in review). Journal of Hydrology X.
 - Maxwell, R.M. & Miller, N.L. (2005). Development of a coupled land surface
   and groundwater model. J. Hydrometeorol.
 - Medlyn, B.E. et al. (2011). Reconciling the optimal and empirical approaches
