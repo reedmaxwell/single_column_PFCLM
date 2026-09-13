@@ -15,7 +15,7 @@ forcing infrastructure through the top-level `helpers.py`.
 
 ### ParFlow (master)
 
-Both examples run on current `parflow/master`. The relevant CLM-physics PRs
+Both examples run on ParFlow v3.15.0 (https://github.com/parflow/parflow/releases/tag/v3.15.0), which includes the snow-physics options. Earlier CLM-physics PRs
 are merged:
 
 | PR | Merged | What it adds |
