@@ -2,8 +2,12 @@
   "name": "Single-Column PF-CLM",
   "build": { "dockerfile": "Dockerfile" },
   "hostRequirements": { "cpus": 2, "memory": "8gb", "storage": "32gb" },
+  "postCreateCommand": "python3 -c 'import parflow, subsettools, hf_hydrodata, xarray, bokeh; print(\"Python stack OK\")' && test -x $PARFLOW_DIR/bin/parflow && echo 'ParFlow binary OK at' $PARFLOW_DIR",
   "customizations": {
     "vscode": {
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/bin/python3"
+      },
       "extensions": [
         "ms-python.python",
         "ms-toolsai.jupyter"
