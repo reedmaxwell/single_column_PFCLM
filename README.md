@@ -29,9 +29,25 @@ here follow their model configurations:
 
 Citations will be updated with final titles and DOIs upon acceptance.
 
-## Prerequisites
+## Run in GitHub Codespaces (zero install)
 
-### ParFlow (master)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/reedmaxwell/single_column_PFCLM?quickstart=1)
+
+The devcontainer builds on the official `parflow/parflow:version-3.15.0`
+image (the release cited in the manuscripts) with the full Python stack
+preinstalled and `PARFLOW_DIR` preconfigured.
+
+1. Click the badge (or Code → Codespaces → Create codespace).  The first
+   build takes a few minutes; the default 2-core machine is sufficient for
+   the single-column runs.
+2. Open a notebook from `et/` or `snow/` and select the Python 3 kernel.
+3. Register your HydroData PIN in the first notebook cell (see below).
+
+Run output is written to `runs/` inside the codespace.
+
+## Prerequisites (local install)
+
+### ParFlow (v3.15.0)
 
 Both examples run on ParFlow v3.15.0 (https://github.com/parflow/parflow/releases/tag/v3.15.0), which includes the snow-physics options. Earlier CLM-physics PRs
 are merged:
@@ -54,13 +70,11 @@ export PARFLOW_DIR=/path/to/parflow/install
 ### Python Environment
 
 ```bash
-pip install parflow subsettools hf_hydrodata xarray numpy pandas matplotlib bokeh
+pip install pftools subsettools hf_hydrodata xarray netcdf4 numpy pandas matplotlib bokeh
 ```
 
-Or with conda:
-```bash
-conda install -c conda-forge parflow subsettools hf_hydrodata xarray numpy pandas matplotlib bokeh
-```
+(`pftools` is the PyPI name of the ParFlow Python package, imported as
+`parflow`.)
 
 ### HydroData Account (free)
 
