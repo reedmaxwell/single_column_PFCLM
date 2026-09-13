@@ -31,7 +31,7 @@ Citations will be updated with final titles and DOIs upon acceptance.
 
 ## Prerequisites
 
-### ParFlow (master)
+### ParFlow (v3.15.0)
 
 Both examples run on ParFlow v3.15.0 (https://github.com/parflow/parflow/releases/tag/v3.15.0), which includes the snow-physics options. Earlier CLM-physics PRs
 are merged:
@@ -54,12 +54,15 @@ export PARFLOW_DIR=/path/to/parflow/install
 ### Python Environment
 
 ```bash
-pip install parflow subsettools hf_hydrodata xarray numpy pandas matplotlib bokeh
+pip install pftools subsettools hf_hydrodata xarray netcdf4 numpy pandas matplotlib bokeh
 ```
+
+(`pftools` is the PyPI/conda-forge name of the ParFlow Python package,
+imported as `parflow`.)
 
 Or with conda:
 ```bash
-conda install -c conda-forge parflow subsettools hf_hydrodata xarray numpy pandas matplotlib bokeh
+conda install -c conda-forge pftools subsettools hf_hydrodata xarray netcdf4 numpy pandas matplotlib bokeh
 ```
 
 ### HydroData Account (free)
