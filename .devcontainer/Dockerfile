@@ -153,10 +153,14 @@ ENV VIRTUAL_ENV=/home/ubuntu/.venv
 RUN python3 -m venv "$VIRTUAL_ENV" && \
     "$VIRTUAL_ENV/bin/pip" install --upgrade pip setuptools wheel && \
     "$VIRTUAL_ENV/bin/pip" install \
+      pftools \
       "subsettools>=2.0.1" \
       "hf_hydrodata>=1.4.3" \
+      xarray \
+      netcdf4 \
+      numpy \
+      pandas \
       "matplotlib>=3.7.2" \
-      "priority_flow>=1.0.1" \
       "bokeh>=3.3.0" \
       jupyter \
       ipykernel
