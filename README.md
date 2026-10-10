@@ -58,6 +58,7 @@ source.
 |----|--------|--------------|
 | #769 | open | `Solver.CLM.VonKarman` key (default 0.378; the ET notebook sets 0.4) |
 | #775 | open | Dry-canopy transpiration fix (`fwet` is set to 0 when the canopy is dry) |
+| writer fix | class branch | NetCDF writer looks variables up before defining them; removes one fsync per variable per step (NetCDF I/O 290 s to ~25 s per single-column water year on Linux) |
 
 The Dockerfile also builds HDF5 with `--enable-build-mode=production`.  HDF5
 1.12.0 and earlier default to a debug build, which made ParFlow's NetCDF output

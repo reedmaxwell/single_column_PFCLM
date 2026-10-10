@@ -122,11 +122,12 @@ USER ubuntu
 # -----------------------------------------------------------------------------
 
 # Class build: parflow/master plus two open ET fixes (PR #769 Solver.CLM.VonKarman
-# key, PR #775 dry-canopy transpiration), merged on reedmaxwell/parflow and
-# pinned to a commit so every rebuild compiles the same source.
+# key, PR #775 dry-canopy transpiration) and the NetCDF writer fsync fix, merged
+# on reedmaxwell/parflow and pinned to a commit so every rebuild compiles the
+# same source.
 ARG PARFLOW_REPO=https://github.com/reedmaxwell/parflow.git
 ARG PARFLOW_BRANCH=class-et-2026
-ARG PARFLOW_COMMIT=f13fe902fde3975c5525aecfc8bb8b6c3f784ad6
+ARG PARFLOW_COMMIT=54aaf18b8a859e455f4d6d8bf1645671155fa285
 
 RUN git clone -b $PARFLOW_BRANCH --depth 1 --single-branch \
     $PARFLOW_REPO $BASE_PATH/parflow/src && \
