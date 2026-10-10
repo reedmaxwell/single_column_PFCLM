@@ -46,6 +46,24 @@ are merged:
 
 Build from source: https://github.com/parflow/parflow
 
+#### Codespaces build (class branch)
+
+The `.devcontainer/Dockerfile` does not build v3.15.0.  It builds the
+`class-et-2026` branch of https://github.com/reedmaxwell/parflow, which is
+`parflow/master` plus two open ET fixes that the ET example uses.  The
+Dockerfile pins the branch to one commit so every rebuild compiles the same
+source.
+
+| PR | Status | What it adds |
+|----|--------|--------------|
+| #769 | open | `Solver.CLM.VonKarman` key (default 0.378; the ET notebook sets 0.4) |
+| #775 | open | Dry-canopy transpiration fix (`fwet` is set to 0 when the canopy is dry) |
+
+The Dockerfile also builds HDF5 with `--enable-build-mode=production`.  HDF5
+1.12.0 and earlier default to a debug build, which made ParFlow's NetCDF output
+about 20 times slower than the solver in Codespaces.  If you build HDF5 from
+source anywhere else, check `h5pcc -showconfig` for `Build Mode: production`.
+
 Set `PARFLOW_DIR` to your install:
 ```bash
 export PARFLOW_DIR=/path/to/parflow/install
