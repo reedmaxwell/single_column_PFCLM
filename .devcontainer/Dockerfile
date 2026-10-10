@@ -61,6 +61,9 @@ ENV CTEST=$BASE_PATH/parflow/dependencies/cmake/bin/ctest
 # -----------------------------------------------------------------------------
 # Install HDF5
 # -----------------------------------------------------------------------------
+# HDF5 1.12.0 configure defaults to a debug build (assertions, -Og, call
+# instrumentation) unless build mode is set.  A debug HDF5 made ParFlow's
+# NetCDF output ~20x slower than the solver in Codespaces.
 
 ARG HDF5_URL=https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.12/hdf5-1.12.0/src/hdf5-1.12.0.tar.gz
 
@@ -70,7 +73,8 @@ WORKDIR $BASE_PATH/parflow/dependencies/hdf5-src
 RUN curl -L $HDF5_URL | tar --strip-components=1 -xzv && \
     CC=mpicc ./configure \
       --prefix=$HDF5_DIR \
-      --enable-parallel && \
+      --enable-parallel \
+      --enable-build-mode=production && \
     make
 
 USER root
@@ -117,9 +121,18 @@ USER ubuntu
 # Install Parflow
 # -----------------------------------------------------------------------------
 
-RUN git clone -b master --depth 1 --single-branch \
-    https://github.com/parflow/parflow.git \
-    $BASE_PATH/parflow/src
+# Class build: parflow/master plus two open ET fixes (PR #769 Solver.CLM.VonKarman
+# key, PR #775 dry-canopy transpiration), merged on reedmaxwell/parflow and
+# pinned to a commit so every rebuild compiles the same source.
+ARG PARFLOW_REPO=https://github.com/reedmaxwell/parflow.git
+ARG PARFLOW_BRANCH=class-et-2026
+ARG PARFLOW_COMMIT=f13fe902fde3975c5525aecfc8bb8b6c3f784ad6
+
+RUN git clone -b $PARFLOW_BRANCH --depth 1 --single-branch \
+    $PARFLOW_REPO $BASE_PATH/parflow/src && \
+    cd $BASE_PATH/parflow/src && \
+    git fetch --depth 1 origin $PARFLOW_COMMIT && \
+    git checkout --quiet $PARFLOW_COMMIT
 
 RUN $CMAKE                     \
     -S $BASE_PATH/parflow/src   \
