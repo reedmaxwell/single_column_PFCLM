@@ -18,16 +18,17 @@ here follow their model configurations:
 
 - **Snow** (`snow/`, `rf/`, `data/`): Maxwell, R.M., *Land surface model snow
   formulation sensitivity and a solar-zenith-angle snow covered area scheme
-  evaluated across the western United States*, Journal of Hydrology, in
-  revision.  The `rf/` folder archives the random forest forcing bias
+  evaluated across the western United States*, Journal of Hydrology 681,
+  136567 (2026), https://doi.org/10.1016/j.jhydrol.2026.136567.  The `rf/` folder archives the random forest forcing bias
   correction used in that study (exact script, random seeds, site-grouped
   cross-validation folds, input and output site-year tables; see
   `rf/README.md`), and `data/` holds the station lists, experiment groups,
   and processed per-site-year metrics for the paper's three experiments
   (see `data/README.md`).
-- **ET** (`et/`): Maxwell, R.M., Journal of Hydrology X, in review.
-
-Citations will be updated with final titles and DOIs upon acceptance.
+- **ET** (`et/`): Maxwell, R.M., *Plant-physics options for evapotranspiration
+  in ParFlow-CLM: Stomatal conductance and root-zone water use combine to
+  reduce bias across AmeriFlux sites*, Journal of Hydrology X, in press
+  (2026).  The DOI will be added when the article is published.
 
 ## Prerequisites
 
@@ -313,10 +314,13 @@ for full WTD sourcing options.
 
 ## References
 
-- Maxwell, R.M. (in revision). Land surface model snow formulation sensitivity
+- Maxwell, R.M. (2026). Land surface model snow formulation sensitivity
   and a solar-zenith-angle snow covered area scheme evaluated across the
-  western United States. Journal of Hydrology.
-- Maxwell, R.M. (in review). Journal of Hydrology X.
+  western United States. Journal of Hydrology 681, 136567.
+  https://doi.org/10.1016/j.jhydrol.2026.136567
+- Maxwell, R.M. (in press). Plant-physics options for evapotranspiration in
+  ParFlow-CLM: Stomatal conductance and root-zone water use combine to reduce
+  bias across AmeriFlux sites. Journal of Hydrology X.
 - Maxwell, R.M. & Miller, N.L. (2005). Development of a coupled land surface
   and groundwater model. J. Hydrometeorol.
 - Medlyn, B.E. et al. (2011). Reconciling the optimal and empirical approaches

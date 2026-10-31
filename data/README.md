@@ -1,6 +1,7 @@
 # Paper data tables
 
-Processed data tables for Maxwell (in revision, Journal of Hydrology).
+Processed data tables for Maxwell (2026, Journal of Hydrology 681, 136567,
+https://doi.org/10.1016/j.jhydrol.2026.136567).
 
 - `Table_S1_siteyears.csv` — the 220 experiment site-years: station IDs
   and names, state, coordinates, elevation, water year, CW3E temperature
