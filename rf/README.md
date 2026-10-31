@@ -1,7 +1,8 @@
 # Random forest forcing bias correction
 
 This folder archives the random forest (RF) bias correction used in
-Maxwell (in revision, Journal of Hydrology): two global RF regressors
+Maxwell (2026, Journal of Hydrology 681, 136567,
+https://doi.org/10.1016/j.jhydrol.2026.136567): two global RF regressors
 that predict water-year CW3E temperature and precipitation bias at
 SNOTEL sites from site and forcing features.
 
